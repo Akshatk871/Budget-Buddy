@@ -3,7 +3,7 @@ import login from '../assets/login.jpg'
 function Login() {
     return (
 
-        <div className="flex items-center justify-center flex-col md:flex-row h-screen bg-white">
+        <div className="flex md:mx-24 items-center justify-center flex-col md:flex-row h-screen ">
             {/* Left Section */}
             <div className="flex-1 bg-cover bg-center p-2">
                 <img
@@ -12,7 +12,7 @@ function Login() {
                     alt="Login Illustration"
                 />
             </div>
-            <div className="flex-1 flex items-center justify-center bg-white">
+            <div className="flex-1 flex rounded-2xl items-center justify-center bg-white py-12">
                 <form className="w-full max-w-sm mx-10">
                     <div className="mb-5">
                         <label

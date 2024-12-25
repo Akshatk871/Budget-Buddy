@@ -12,7 +12,7 @@ function Register() {
                     alt="Login Illustration"
                 />
             </div>
-            <div className="flex-1 flex items-center justify-center bg-white py-12">
+            <div className="flex-1 flex rounded-2xl items-center justify-center bg-white py-12">
                 <form className="w-full max-w-sm mx-10">
                 <div className="mb-5">
                         <label
