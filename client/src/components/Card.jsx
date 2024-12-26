@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Card() {
+function Card(props) {
   return (
     <div>
 
@@ -11,9 +11,9 @@ function Card() {
   <path fill-rule="evenodd" d="M5 12a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
 </svg>
         <a href="#">
-            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">₹50000</h5>
+            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">{props.amount}</h5>
         </a>
-        <p class="mb-3 font-normal text-gray-500 ">Income</p>
+        <p class="mb-3 font-normal text-gray-500 ">{props.title}</p>
         
     </div>
     </div>

@@ -13,18 +13,42 @@ import { Bar } from 'react-chartjs-2';
 // Register necessary components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = () => {
+const BarChart = (props) => {
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const groupedData = props.transactions.reduce((acc, transaction) => {
+    const date = new Date(transaction.date);
+    console.log(date);
+    const month = date.getMonth(); // 0-11
+    const amount = transaction.amount;
+    const type = transaction.type; // 'income' or 'expense'
+
+    if (!acc[month]) {
+      acc[month] = { income: 0, expense: 0 };
+    }
+
+    if (type === 'income') {
+      acc[month].income += amount;
+    } else if (type === 'expense') {
+      acc[month].expense += amount;
+    }
+
+    return acc;
+  }, {});
+  const incomeData = months.map((_, index) => groupedData[index]?.income || 0);
+  const expenseData = months.map((_, index) => groupedData[index]?.expense || 0);
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: months,
     datasets: [
       {
         label: 'Income',
-        data: [8000, 7500, 8300, 7800, 8500, 8700, 8900, 7600, 9100, 9700, 9100, 8900],
+        data: incomeData,
         backgroundColor: 'rgba(34, 197, 94, 0.7)',
       },
       {
         label: 'Expense',
-        data: [5000, 5500, 4800, 4900, 4700, 5300, 5200, 5800, 5500, 5900, 5100, 5700],
+        data: expenseData,
         backgroundColor: 'rgba(239, 68, 68, 0.7)',
       },
     ],

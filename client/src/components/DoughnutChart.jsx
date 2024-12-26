@@ -5,13 +5,33 @@ import { Doughnut } from 'react-chartjs-2';
 // Register necessary components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = () => {
+const DoughnutChart = (props) => {
+  const currentMonth = new Date().getMonth();
+
+  const groupedData = props.transactions.reduce((acc, transaction) => {
+    const date = new Date(transaction.date);
+    const month = date.getMonth(); // 0-11
+    const amount = transaction.amount;
+    const category = transaction.category; // e.g., 'Rent', 'Education', etc.
+
+    if (month === currentMonth && transaction.type === 'expense') {
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+      acc[category] += amount;
+    }
+
+    return acc;
+  }, {});
+
+  const categories = Object.keys(groupedData);
+  const amounts = categories.map(category => groupedData[category]);
   const data = {
-    labels: ['Rent & Living', 'Investment', 'Education', 'Food & Drink', 'Entertainment'],
+    labels: categories,
     datasets: [
       {
         label: 'Expenses',
-        data: [2100, 525, 420, 280, 175],
+        data:amounts,
         backgroundColor: [
           'rgba(34, 197, 94, 0.7)',
           'rgba(239, 68, 68, 0.7)',
