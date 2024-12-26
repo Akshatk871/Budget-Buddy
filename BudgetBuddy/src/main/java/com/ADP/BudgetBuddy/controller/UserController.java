@@ -3,6 +3,7 @@ package com.ADP.BudgetBuddy.controller;
 import com.ADP.BudgetBuddy.model.User;
 import com.ADP.BudgetBuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers() {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUserById(@PathVariable String id) {
         return userService.findUserById(id)
                 .map(ResponseEntity::ok)
@@ -31,7 +32,7 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
         return userService.findUserById(id)
                 .map(existingUser -> {
@@ -49,5 +50,12 @@ public class UserController {
                     return ResponseEntity.ok().<Void>build();
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping(value = "/login",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
+        return userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword())
+                .map(user -> ResponseEntity.ok().body("{\"userId\": \"" + user.getId() + "\"}"))
+                .orElseGet(() -> ResponseEntity.status(401).body("Authentication failed"));
     }
 }

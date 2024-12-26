@@ -1,6 +1,9 @@
 import React from 'react';
 import { DollarSign, LineChart, Shield, Users } from 'lucide-react';
 
+import home from "../assets/home.png";
+import about from "../assets/about.png";
+
 const Button = ({ children, className, ...props }) => (
   <button className={`px-4 py-2 rounded ${className}`} {...props}>
     {children}
@@ -55,7 +58,7 @@ export default function HomePage() {
           </div>
           <div className="relative h-[400px]">
             <img
-              src="/placeholder.svg"
+              src={home}
               alt="Financial Illustration"
               className="object-contain w-full h-full"
             />
@@ -92,7 +95,7 @@ export default function HomePage() {
         <div className="bg-white rounded-3xl p-8 grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[400px]">
             <img
-              src="/placeholder.svg"
+              src={about}
               alt="About Us"
               className="object-cover rounded-2xl w-full h-full"
             />

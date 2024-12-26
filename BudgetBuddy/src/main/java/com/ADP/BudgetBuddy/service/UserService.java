@@ -29,7 +29,12 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User findByName(String name) {
-        return userRepository.findByName(name);
+//    public Optional<User> findByEmail(String name) {
+//        return userRepository.findByEmail(name);
+//    }
+
+    public Optional<User> authenticateUser(String email, String password) {
+        return userRepository.findByEmail(email)
+                .filter(user -> user.getPassword().equals(password)); // Simple password check, consider encrypting
     }
 }

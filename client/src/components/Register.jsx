@@ -32,6 +32,11 @@ function Register() {
             </div>
             <div className="flex-1 flex rounded-2xl items-center justify-center bg-white py-12">
                 <form className="w-full max-w-sm mx-10">
+                <div className="flex justify-center pb-8">
+                    <h1 className="text-2xl font-semibold">
+                    Get Started
+                    </h1>
+                </div>
                 <div className="mb-5">
                         <label
                             htmlFor="name"
